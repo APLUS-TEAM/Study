@@ -1,0 +1,38 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Stack;
+
+public class Main {
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		Stack<Character> stack = new Stack<>();
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder result = new StringBuilder();
+		int T = Integer.parseInt(br.readLine());
+		String[] inputString = new String[T];
+		for (int cases = 0; cases < T; cases++) {
+			inputString[cases] = br.readLine();
+			int length = inputString[cases].length();
+			for (int index = 0; index < length; index++) {
+				if (inputString[cases].charAt(index) == '(') {
+					stack.push('(');
+				} else {
+					if (stack.empty()) {
+						stack.push(' ');
+						break;
+					}
+					stack.pop();
+				}
+			}
+			if (stack.empty()) {
+				result.append("YES\n");
+			} else {
+				while (!stack.empty()) {
+					stack.pop();
+				}
+				result.append("NO\n");
+			}
+		}
+		System.out.println(result);
+	}
+}
