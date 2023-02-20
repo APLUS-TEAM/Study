@@ -11,23 +11,26 @@ public class PS11055_BongJun {
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int N = Integer.parseInt(st.nextToken());
 		int[] arr = new int[N];
-		int[] dp = new int[N];
 		st = new StringTokenizer(br.readLine());
 		for (int i = 0; i < N; i++) {
 			arr[i] = Integer.parseInt(st.nextToken());
-			dp[i] = arr[i];
 		}
-		
+		int[] dp = new int[N];
 		dp[0] = arr[0];
-		int result = dp[0];
 		for (int i = 1; i < N; i++) {
-			for (int j = 0; j < i; j++) {
-				if (arr[i] > arr[j]) {
-					dp[i] = Math.max(dp[i], dp[j] + arr[i]);
+			int max = 0;
+			for (int j = i - 1; j >= 0; j--) {
+				if (arr[i] <= arr[j]) {
+					continue;
 				}
+				max = Math.max(max, dp[j]); 
 			}
-			result = Math.max(result, dp[i]);
+			dp[i] = max + arr[i];
 		}
-		System.out.println(result);
+		int max = 0;
+		for (int i = 0; i < N; i++) {
+			max = Math.max(max, dp[i]);
+		}
+		System.out.println(max)		;
 	}
 }
